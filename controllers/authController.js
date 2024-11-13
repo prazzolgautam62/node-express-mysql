@@ -7,9 +7,9 @@ exports.register = async (req, res) => {
   try {
     const { username, email, password } = req.body;
     const newUser = await User.create({ username, email, password });
-    res.status(201).json(newUser);
+    res.status(201).json({status: true, message: 'Register Successful !', user: newUser});
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    res.status(400).json({ status: false, message: error.message });
   }
 };
 
@@ -27,6 +27,6 @@ exports.login = async (req, res) => {
     });
     res.status(200).json({ status: true, message: 'Login Sucessful !',data: {token: token,user: user} });
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    res.status(400).json({ status: false, message: error.message });
   }
 };
