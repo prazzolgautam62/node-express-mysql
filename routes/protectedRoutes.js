@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const authMiddleware = require('../middlewares/authMiddleware');
+const dashboardController = require('../controllers/dashboardController');
 
-router.get('/dashboard', authMiddleware, (req, res) => {
-  res.status(200).json({ message: 'Welcome to the dashboard!' });
-});
+// Protected route that forwards to the dashboardController
+router.get('/profile', authMiddleware, dashboardController.getProfile);
 
 module.exports = router;
