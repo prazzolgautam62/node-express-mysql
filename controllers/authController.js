@@ -6,8 +6,8 @@ require('dotenv').config();
 
 exports.register = async (req, res) => {
   try {
-    const { username, email, password } = req.body;
-    const newUser = await User.create({ username, email, password });
+    const { name, username, email, password } = req.body;
+    const newUser = await User.create({ name, username, email, password });
     res.status(201).json({status: true, message: 'Register Successful !', user: newUser});
   } catch (error) {
     res.status(400).json({ status: false, message: error.message });
