@@ -7,6 +7,8 @@ module.exports = (req, res, next) => {
 
   try {
     const verified = jwt.verify(token, process.env.JWT_SECRET);
+    if(verified.usertype !== 'admin') return res.status(401).json({ status: false, message: 'Unauthorized action' });
+
     req.user = verified;
     next();
   } catch (error) {
