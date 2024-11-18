@@ -40,10 +40,9 @@ npm install
 ```
 
 ### Configure environment variables
-Create a .env file in the root directory and add the following variables
+Copy .env.example, create .env file in the root directory and update database credentials.
 ```bash
-PORT=3000
-JWT_SECRET=your_secret_key
+cp .env.example .env
 ```
  ### Set up your database
  Edit config/config.json with your MySQL credentials and run the migrations:
@@ -59,9 +58,14 @@ JWT_SECRET=your_secret_key
  ```
 
  ### Use the following endpoints
+
+ #### Auth Routes
  - POST /api/auth/register: Register a new user.
  - POST /api/auth/login: Log in to get a JWT token.
- - GET /api/protected/dashboard: Access a protected route (requires token).
+
+ #### Protected Routes (requires token)
+ - GET /api/protected/dashboard
+ - POST /api/protected/change-password
 
  ## Technologies Used
  - Node.js
@@ -69,5 +73,6 @@ JWT_SECRET=your_secret_key
  - Sequelize ORM
  - MySQL
  - JSON Web Tokens (JWT)
- - bcrypt.js
+ - Bcrypt.js
+ - Express Validator
 
