@@ -31,35 +31,3 @@ exports.login = async (req, res) => {
     res.status(400).json({ status: false, message: error.message });
   }
 };
-
-exports.changePassword = async(req,res) =>{
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.status(400).json({ errors: errors.array() });
-  }
-
-  try {
-    const { oldPassword, newPassword } = req.body;
-
-    // Find the authenticated user
-    const user = await User.findByPk(req.user.id);
-    if (!user) {
-      return res.status(404).json({ message: 'User not found' });
-    }
-
-    // Verify the old password
-    const isOldPasswordValid = await bcrypt.compare(oldPassword, user.password);
-    if (!isOldPasswordValid) {
-      return res.status(400).json({ message: 'Old password is incorrect' });
-    }
-    // Hash the new password and update it
-    // const hashedPassword = await bcrypt.hash(newPassword, 10);
-    user.password = newPassword;
-    await user.save();
-
-    res.status(200).json({ message: 'Password updated successfully' });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'An error occurred', error: error.message });
-  }
-};
