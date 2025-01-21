@@ -36,6 +36,7 @@ exports.changePassword = async(req,res) =>{
   };
 
   exports.updateProfile = async (req, res) => {
+    console.log('req here',req);
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
@@ -45,7 +46,7 @@ exports.changePassword = async(req,res) =>{
       const { name, username, email } = req.body;
   
       // Find the authenticated user
-      const user = await User.findByPk(req.user.id);
+      const user = await User.findByPk(req.params.id);
       if (!user) {
         return res.status(404).json({ message: 'User not found' });
       }
